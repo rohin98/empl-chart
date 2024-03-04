@@ -69,18 +69,6 @@ export default new class LeftPanel {
         );
     }
 
-    initFilterPopover () {
-        TippyPopover(this.elements.filterIcon, {
-            trigger: 'click',
-            theme: 'light-border',
-            content: this.elements.filterPopoverContainer,
-            placement: 'right-start',
-            allowHTML: true,
-            interactive: true,
-            hideOnClick: false,
-        });
-    }
-
     renderPanel (employeesList) {
         this.employeesList = employeesList;
 
