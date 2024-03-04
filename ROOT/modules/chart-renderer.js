@@ -38,7 +38,7 @@ export default new class ChartRenderer {
             enableDragDrop: true,
             enableSearch: false,
             mouseScrool: OrgChart.none,
-            // align: OrgChart.ORIENTATION,
+            collapse: false,
             toolbar: {
                 zoom: true,
                 fit: true
@@ -46,7 +46,8 @@ export default new class ChartRenderer {
         });
 
         this.chartInstance.onDrop(this.onNodeDrop.bind(this));
-        this.chartInstance.onNodeClick(this.onNodeClick.bind(this));
+        this.chartInstance.onNodeClick(this.onNodeClick.bind(this)); // Edit node option hidden
+        this.chartInstance.onExpandCollpaseButtonClick(this.onNodeClick.bind(this)); // Expand/collapse option hidden
 
         this.load(nodes);
 

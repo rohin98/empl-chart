@@ -2,28 +2,34 @@
     text{
         font-family: 'hero-new', sans-serif;
 
-        &:nth-of-type(1) {
+        &:nth-of-type(1) { // Employee name
             font-size: 18px;
             fill: #045aaa;
         }
     }
 
-    rect {
+    rect { // card
         stroke: #a5a4a2;
         filter: drop-shadow(1px 1px 8px rgba(0,0,0,.25));
     }
 
-    line {
+    line { // card top line
         stroke-width: 4;
         stroke: #ad2d09;
     }
 }
 
-[data-l-id] path {
+[data-l-id] path { // chart line path
     stroke: #a5a4a2;
 }
 
-.boc-toolbar-container {
+[data-ctrl-ec-id] circle { // expand/collapse option hidden
+    cx: 0;
+    cy: 0;
+    r: 0;
+}
+
+.boc-toolbar-container { // Chart navigation actions
     position: absolute;
     right: 30px !important;
     bottom: 30px !important;
