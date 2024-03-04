@@ -38,7 +38,7 @@ export default new class MainClass {
 
                 setTimeout(() => {
                     this.removePageLoader();
-                }, 1000);
+                }, 1500);
             })
             .catch((err) => {
                 alert('Unable to process employees request');
