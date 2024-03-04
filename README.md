@@ -39,6 +39,8 @@ Use the filter dropdown to filter employees by their assigned teams.
 Enter a search query in the search box to find specific employees by name or designation.
 Click and drag an employee node to update their reporting relationship within the organization.
 
-Acknowledgements
+### Acknowledgements
+
 [OrgChart.js](https://github.com/BALKANGraph/OrgChartJS) - Interactive organizational chart library
+
 [Tippy.js](https://github.com/atomiks/tippyjs) - Tooltip library for interactive popover functionality
