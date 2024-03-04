@@ -1,0 +1,35 @@
+
+@font-face {
+    font-family: 'hero-new', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    src: local('Hero-New'), url('../fonts/Hero-New.woff') format('woff');
+}
+
+body {
+    font-family: hero-new,sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    margin: 0;
+    overflow: hidden;
+}
+
+input {
+    cursor: pointer;
+}
+
+.main-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+}
+
+.postion-relative {
+    position: relative;
+}
+
+.display-none {
+    display: none;
+}

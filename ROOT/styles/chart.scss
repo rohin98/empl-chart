@@ -1,0 +1,16 @@
+[data-n-id] {
+    text{
+        font-family: 'hero-new', sans-serif;
+
+        &:nth-of-type(1) {
+            font-size: 18px;
+            fill: #038acc;
+        }
+    }
+}
+
+.boc-toolbar-container {
+    position: absolute;
+    right: 30px !important;
+    bottom: 30px !important;
+}
