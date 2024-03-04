@@ -93,7 +93,9 @@ export default new class LeftPanel {
 
         removeAllChildNodes(this.elements.employeesContainer);
 
-        employeesList.forEach((data) => {
+        const sortedEmployeeList = sortEmployees(employeesList);
+
+        sortedEmployeeList.forEach((data) => {
             if (this.savedFilter && data.team !== this.savedFilter) {
                 return;
             }
@@ -212,12 +214,30 @@ function getRandomColor() {
     // Define the minimum and maximum values for each RGB component (excluding white and black)
     const min = 40;
     const max = 150;
-  
+
     // Generate random values for the RGB components within the specified range
     const r = Math.floor(Math.random() * (max - min + 1)) + min;
     const g = Math.floor(Math.random() * (max - min + 1)) + min;
     const b = Math.floor(Math.random() * (max - min + 1)) + min;
-  
+
     // Return the RGB color in the format "rgb(r, g, b)"
     return `rgb(${r}, ${g}, ${b})`;
-  }
+}
+
+function sortEmployees (employeesList) {
+    return employeesList.sort((a, b) => {
+        if (a.team < b.team) { // First sort based on team
+            return -1;
+        } else if (a.team > b.team) {
+            return 1;
+        } else { // If teams are the same, sort based on name
+            if (a.name < b.name) {
+                return -1;
+            } else if (a.name > b.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    });
+}
