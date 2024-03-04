@@ -1,7 +1,6 @@
 module.exports = {
-    entry: './modules/index.js', // Adjust entry path if necessary
+    entry: './modules/index.js',
     output: {
-        // path: path.resolve(__dirname, '..', 'dist'), // Adjust output path if necessary
         filename: 'index.js'
     },
     module: {
