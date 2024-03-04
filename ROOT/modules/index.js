@@ -12,10 +12,10 @@ export default new class MainClass {
         this.setup();
     }
 
-    cacheElements () {
+    cacheElements () { // Cache elements
         this.elements = {
             mainContainer: document.getElementById('main_container'),
-            pageLoader: document.getElementById('page_loader'),
+            pageLoader: document.getElementById('page_loader')
         }
     }
 
@@ -29,7 +29,9 @@ export default new class MainClass {
                 LeftPanel.setup({
                     onFilterSave: ChartRenderer.onFilterSave.bind(ChartRenderer)
                 });
-                ChartRenderer.setup();
+                ChartRenderer.setup({
+                    onEmployeeManagerChange: LeftPanel.onEmployeeManagerChange.bind(LeftPanel)
+                });
                 
                 LeftPanel.renderPanel(employeesList);
                 ChartRenderer.renderChart(employeesList);
@@ -41,7 +43,7 @@ export default new class MainClass {
             .catch((err) => {
                 alert('Unable to process employees request');
                 throw err;
-            })
+            });
     }
 
     removePageLoader () {

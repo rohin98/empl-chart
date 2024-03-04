@@ -18,17 +18,17 @@ export default class FilterPopup {
         this.bindEvents();
     }
 
-    cacheElements () {
+    cacheElements () { // Cache elements
         this.elements = {
-            mainContainer: createElement('div', { class: 'popover-container' }),
+            popoverContainer: createElement('div', { class: 'popover-container' }),
             popoverContent: createElement('div', { class: 'popover-content' }),
             filterListContent: createElement('div', { class: 'filter-list-content' }),
             cancelButton: createElement('button', { class: 'transparent-btn' }, 'Cancel'),
             applyButton: createElement('button', { class: 'blue-btn' }, 'Apply')
-        }
+        };
     }
 
-    appendElements () {
+    appendElements () { // Append elements in structure
         this.elements.popoverContent.append(
             this.elements.filterListContent,
             createElement('div', { class: 'popover-button-container' }, [
@@ -37,16 +37,16 @@ export default class FilterPopup {
             ])
         );
         
-        this.elements.mainContainer.append(
+        this.elements.popoverContainer.append(
             createElement('div', { class: 'popover-title' }, 'Filter by team'),
             this.elements.popoverContent
-        )
+        );
     }
 
     initFilterPopover () {
         this.tippyPopover = TippyPopover(this.options.filterIcon, {
             trigger: 'click',
-            content: this.elements.mainContainer,
+            content: this.elements.popoverContainer,
             placement: 'right-start',
             allowHTML: true,
             interactive: true,
@@ -62,10 +62,13 @@ export default class FilterPopup {
             const rowId = `filter_row_${index}`;
 
             const inputRadio =  createElement('input', { type: 'radio', name: 'employee-filter-row', value: filterOption.value, id: rowId });
+            
+            // Select the first option
             if (index === 0) {
                 this.savedFilter = inputRadio.value;
                 inputRadio.checked = true;
             }
+
             const row = createElement('div', {}, [
                 inputRadio,
                 createElement('label', { for: rowId }, filterOption.label)
@@ -82,7 +85,7 @@ export default class FilterPopup {
     closePopover () {
         this.tippyPopover.hide();
 
-        // Reset to previously saved
+        // Reset to previously saved filter option
         const savedFilterInput = this.elements.filterListContent.querySelector(`input[type="radio"][value="${this.savedFilter}"]`);
         savedFilterInput.checked = true;
     }

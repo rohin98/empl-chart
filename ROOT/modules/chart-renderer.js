@@ -2,7 +2,7 @@
 import '../styles/chart.scss';
 
 // Helpers
-import { filterEmployeesByTeam } from './helpers/chart.helpers';
+import { filterEmployeesByTeam, getEmployeeById } from './helpers/chart.helpers';
 
 export default new class ChartRenderer {
     constructor() {
@@ -10,11 +10,13 @@ export default new class ChartRenderer {
         this.chartInstance = null;
     }
 
-    setup () {
+    setup (options) {
+        this.options = options;
+
         this.cacheElements();
     }
 
-    cacheElements () {
+    cacheElements () { // Cache elements
         this.domCache = {
             chartContainer: document.getElementById("chart_container")
         }
@@ -29,7 +31,6 @@ export default new class ChartRenderer {
             template: "ula",
             padding: 100,
             scaleInitial: OrgChart.match.boundary,
-            searchFields: ["name", "title"],
             nodeBinding: {
                 field_0: "name",
                 field_1: "title",
@@ -50,8 +51,6 @@ export default new class ChartRenderer {
         this.chartInstance.onExpandCollpaseButtonClick(this.onNodeClick.bind(this)); // Expand/collapse option hidden
 
         this.load(nodes);
-
-        window.chart = this.chartInstance; // TODO: remove
     }
 
     load (nodes) {
@@ -67,19 +66,27 @@ export default new class ChartRenderer {
     }
 
     onNodeDrop ({ dragId, dropId }) {
+        if (dropId === undefined) { // Dropped on canvas
+            return;
+        }
+
+        const managerDetailsDetails = getEmployeeById(this.employeesList, dropId);
+
         fetch(`/employee/${dragId}`, {
             method: 'PUT',
             headers: {
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              managerId: dropId
+            body: JSON.stringify({ // Update manager ID & team for the employee
+                managerId: managerDetailsDetails.id,
+                team: managerDetailsDetails.team
             })
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             this.employeesList = data;
+
+            this.options.onEmployeeManagerChange(this.employeesList);
         })
         .catch(error => {
             console.error('Error updating JSON data:', error);
@@ -91,7 +98,7 @@ export default new class ChartRenderer {
     }
 }
 
-function getNodesList (employeesList) {
+function getNodesList (employeesList) { // Remap according to chart library
     return employeesList.map((data) => {
         return {
             id: data.id,
