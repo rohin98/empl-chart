@@ -1,5 +1,5 @@
 #left_panel_container {
-    width: 350px;
+    width: 370px;
     background: #2b2f3a;
     color: #fff;
     flex: 0 0 auto;
@@ -7,9 +7,10 @@
     
     .brand-header {
         display: flex;
-        padding: 35px 30px;
         align-items: center;
-        background: #383c49;
+        justify-content: center;
+        padding: 35px 0px;
+        background: linear-gradient(to top, transparent, #060606);
 
         img {
             width: 28px;
@@ -30,7 +31,7 @@
         .search-wrapper {
             display: flex;
             position: relative;
-            border: 1px solid #747783;
+            border: 1px solid #747786;
             border-radius: 3px;
             width: 280px;
             padding: 5px;
@@ -39,8 +40,8 @@
     
             i {
                 cursor: pointer;
-                color: #a6abc1;
-                margin-left: 10px;
+                color: #747786;
+                margin-left: 5px;
     
                 &:hover {
                     color: #fff;
@@ -92,7 +93,7 @@
 
         .fa-filter {
             font-size: 20px;
-            margin-left: 10px;
+            margin-left: 12px;
             cursor: pointer;
             color: #e2e3ea;
         }

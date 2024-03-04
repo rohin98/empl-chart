@@ -12,7 +12,16 @@ export default new class MainClass {
         this.setup();
     }
 
-     setup () {
+    cacheElements () {
+        this.elements = {
+            mainContainer: document.getElementById('main_container'),
+            pageLoader: document.getElementById('page_loader'),
+        }
+    }
+
+    setup () {
+        this.cacheElements();
+
         fetch('/employees')
             .then((response) => {
                 const employeesList = JSON.parse(response._bodyText);
@@ -24,10 +33,19 @@ export default new class MainClass {
                 
                 LeftPanel.renderPanel(employeesList);
                 ChartRenderer.renderChart(employeesList);
+
+                setTimeout(() => {
+                    this.removePageLoader();
+                }, 1000);
             })
             .catch((err) => {
                 alert('Unable to process employees request');
                 throw err;
             })
+    }
+
+    removePageLoader () {
+        this.elements.mainContainer.classList.remove('display-none');
+        this.elements.pageLoader.classList.add('display-none');
     }
 }

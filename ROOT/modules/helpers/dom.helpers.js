@@ -32,8 +32,6 @@ export function removeAllChildNodes(node) {
 }
 
 export function searchObjects(searchText, searchProperty, objects) {
-    // const escapedText = searchText.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
-    
     const regex = new RegExp(`(${searchText})`, 'gi');
 
     const filteredList = objects.filter((obj) => {

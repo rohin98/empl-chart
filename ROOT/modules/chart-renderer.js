@@ -46,6 +46,7 @@ export default new class ChartRenderer {
         });
 
         this.chartInstance.onDrop(this.onNodeDrop.bind(this));
+        this.chartInstance.onNodeClick(this.onNodeClick.bind(this));
 
         this.load(nodes);
 
@@ -82,6 +83,10 @@ export default new class ChartRenderer {
         .catch(error => {
             console.error('Error updating JSON data:', error);
         });
+    }
+
+    onNodeClick () {
+        return false;
     }
 }
 
