@@ -18,6 +18,8 @@ window.server = new Pretender(function() {
             employeesJSON[employeeIndex].managerId = updatedData.managerId;
             employeesJSON[employeeIndex].team = updatedData.team;
 
+            updateSubtreeTeams(employeesJSON, employeesJSON[employeeIndex].id, updatedData.team); // Update the team for all the employees under dropped employee, if any
+
             return [200, { 'Content-Type': 'application/json' }, JSON.stringify(employeesJSON)]; // Return updated data
         } else {
             return [404, { 'Content-Type': 'text/plain' }, 'Employee not found'];
@@ -26,5 +28,15 @@ window.server = new Pretender(function() {
 });
 
 window.server.unhandledRequest = function(verb, path, request) {
-    request.passthrough(); // <-- A native, sent xhr is returned
+    request.passthrough(); // Native sent xhr is returned
 };
+
+function updateSubtreeTeams (employeesJSON, managerID, team) {
+    const subtreeEmployees = employeesJSON.filter(employee => employee.managerId === managerID);
+
+    subtreeEmployees.forEach(employee => {
+        employee.team = team; // Update the team name
+
+        updateSubtreeTeams(employeesJSON, employee.id, team); // Recursively update the subtree of the current employee
+    });
+}
