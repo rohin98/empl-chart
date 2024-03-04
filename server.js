@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000; // Use port 3000 or the one provided by the environment
 
 // Serve static files from the root directory
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname + '/dist')));
 
 // Route for the homepage
 app.get('/', (req, res) => {
