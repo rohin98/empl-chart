@@ -7,7 +7,6 @@ import { filterEmployeesByTeam, getEmployeeById } from './helpers/chart.helpers'
 export default new class ChartRenderer {
     constructor() {
         this.employeesList = [];
-        this.chartInstance = null;
     }
 
     setup (options) {
@@ -27,7 +26,7 @@ export default new class ChartRenderer {
 
         const nodes = getNodesList(employeesList);
 
-        this.chartInstance = new OrgChart(this.domCache.chartContainer, {
+        window.chart = new OrgChart(this.domCache.chartContainer, {
             template: "ula",
             padding: 100,
             scaleInitial: OrgChart.match.boundary,
@@ -46,15 +45,15 @@ export default new class ChartRenderer {
             }
         });
 
-        this.chartInstance.onDrop(this.onNodeDrop.bind(this));
-        this.chartInstance.onNodeClick(this.onNodeClick.bind(this)); // Edit node option hidden
-        this.chartInstance.onExpandCollpaseButtonClick(this.onNodeClick.bind(this)); // Expand/collapse option hidden
+        window.chart.onDrop(this.onNodeDrop.bind(this));
+        window.chart.onNodeClick(this.onNodeClick.bind(this)); // Edit node option hidden
+        window.chart.onExpandCollpaseButtonClick(this.onNodeClick.bind(this)); // Expand/collapse option hidden
 
         this.load(nodes);
     }
 
     load (nodes) {
-        this.chartInstance.load(nodes);
+        window.chart.load(nodes);
     }
 
     onFilterSave (selectedFilter) {
