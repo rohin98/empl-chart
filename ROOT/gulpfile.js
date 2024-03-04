@@ -23,7 +23,8 @@ gulp.task('scripts-prod', function () {
 gulp.task('scripts-watch', function () {
     const config = require('./config/webpack.config');
     config.mode = 'development';
-
+    config.watch = true;
+    
     return gulp.src(buildConfig.modules)
         .pipe(webpack(config))
         .pipe(gulp.dest(buildConfig.dest.js));

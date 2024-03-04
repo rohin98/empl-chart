@@ -1,6 +1,4 @@
 module.exports = {
-    mode: 'development',
-    watch: true,
     entry: './modules/index.js', // Adjust entry path if necessary
     output: {
         // path: path.resolve(__dirname, '..', 'dist'), // Adjust output path if necessary
