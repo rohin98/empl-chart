@@ -27,6 +27,11 @@ gulp.task('views', function () {
         .pipe(gulp.dest(buildConfig.dest.views));
 });
 
+gulp.task('fonts', function () {
+    return gulp.src(buildConfig.fonts)
+        .pipe(gulp.dest(buildConfig.dest.fonts));
+});
+
 function watchTasks(done) {
     watch(buildConfig.views, series('views'));
     done();
@@ -37,6 +42,6 @@ function logBuildCompletion(done) {
     done();
 }
 
-gulp.task('default', series('clean', parallel('views', 'scripts', 'tp-scripts'), logBuildCompletion));
+gulp.task('default', series('clean', parallel('views', 'scripts', 'tp-scripts', 'fonts'), logBuildCompletion));
 
 exports.watch = parallel('default', watchTasks);

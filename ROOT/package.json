@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.3",
+    "tippy.js": "^6.3.7",
     "webpack-stream": "^7.0.0"
   },
   "devDependencies": {
