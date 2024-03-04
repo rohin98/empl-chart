@@ -11,9 +11,21 @@ gulp.task('clean', function () {
         .pipe(clean({ force: true }));
 });
 
-gulp.task('scripts', function () {
+gulp.task('scripts-prod', function () {
+    const config = require('./config/webpack.config');
+    config.mode = 'production';
+
     return gulp.src(buildConfig.modules)
-        .pipe(webpack(require('./config/webpack.config')))
+        .pipe(webpack(config))
+        .pipe(gulp.dest(buildConfig.dest.js));
+});
+
+gulp.task('scripts-watch', function () {
+    const config = require('./config/webpack.config');
+    config.mode = 'development';
+
+    return gulp.src(buildConfig.modules)
+        .pipe(webpack(config))
         .pipe(gulp.dest(buildConfig.dest.js));
 });
 
@@ -42,6 +54,7 @@ function logBuildCompletion(done) {
     done();
 }
 
-gulp.task('default', series('clean', parallel('views', 'scripts', 'tp-scripts', 'fonts'), logBuildCompletion));
+gulp.task('default', series('clean', parallel('views', 'scripts-watch', 'tp-scripts', 'fonts'), logBuildCompletion));
 
 exports.watch = parallel('default', watchTasks);
+exports.build = parallel(series('clean', parallel('views', 'scripts-prod', 'tp-scripts', 'fonts')));
