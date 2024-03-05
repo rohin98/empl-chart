@@ -69,16 +69,21 @@ export default new class ChartRenderer {
             return;
         }
 
-        const managerDetailsDetails = getEmployeeById(this.employeesList, dropId);
+        const employeeDetails = getEmployeeById(this.employeesList, dragId);
+        const managerDetails = getEmployeeById(this.employeesList, dropId);
 
-        fetch(`/employee/${dragId}`, {
+        if (employeeDetails.managerId === managerDetails.id) { // Return if the employee is dropped to the same manager
+            return;
+        }
+
+        fetch(`/employee/${employeeDetails.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ // Update manager ID & team for the employee
-                managerId: managerDetailsDetails.id,
-                team: managerDetailsDetails.team
+                managerId: managerDetails.id,
+                team: managerDetails.team
             })
         })
         .then(response => response.json())

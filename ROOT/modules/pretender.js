@@ -15,10 +15,6 @@ window.server = new Pretender(function() {
         const employeeIndex = employeesJSON.findIndex(employee => employee.id == employeeID);
 
         if (employeeIndex !== -1) { // Update the employee data if found
-            if (employeesJSON[employeeIndex].managerId === updatedData.managerId) { // Return the same employee data if the employee is dropped to the same manager
-                return [200, { 'Content-Type': 'application/json' }, JSON.stringify(employeesJSON)];
-            }
-
             employeesJSON[employeeIndex].managerId = updatedData.managerId;
             employeesJSON[employeeIndex].team = updatedData.team;
 
